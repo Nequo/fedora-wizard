@@ -1,4 +1,4 @@
-# Pop-wizard
+# Fedora-wizard
 
 This repository is used to manage my Fedora machine.
 The idea was taken from [geerlingguy's mac-dev-playbook](https://github.com/geerlingguy/mac-dev-playbook).
