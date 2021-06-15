@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: Include variables
+      include_vars: "{{ item }}"
+      with_items:
+        - "{{ playbook_dir }}/vars.yml"
+    - name: debug
+      debug: msg="{{ ansible_user_id }}"
+
+  tasks:
+    - import_tasks: tasks/packages.yml
+      tags: ['packages']
+      become: yes
+
+    - import_tasks: tasks/ergodox-wally.yml
+      tags: ['ergodox-wally']
+      become: yes
+
+    - import_tasks: tasks/vscode.yml
+      tags: ['vscode']
+      become: yes
+
+    - import_tasks: tasks/dotfiles.yml
+      tags: ['dotfiles']

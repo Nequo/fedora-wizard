@@ -1,0 +1,7 @@
+---
+
+packages:
+  - fish
+  - bat
+  - ripgrep
+  - fd-find

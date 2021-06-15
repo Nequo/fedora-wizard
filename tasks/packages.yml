@@ -1,0 +1,6 @@
+---
+
+- name: packages | Install packages
+  dnf:
+    name: "{{ packages }}"
+    state: latest

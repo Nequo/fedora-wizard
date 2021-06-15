@@ -1,0 +1,22 @@
+---
+
+- name: neovim | Clone repo
+  git:
+    repo: 'https://github.com/neovim/neovim.git'
+    dest: '/home/nequo/git/neovim'
+  register: nvimrepo
+
+- name: neovim | Make
+  make:
+    chdir: '/home/nequo/git/neovim'
+    params:
+      CMAKE_BUILD_TYPE: Release
+  when: nvimrepo.changed
+  become: true
+
+- name: neovim | Make Install
+  make:
+    chdir: '/home/nequo/git/neovim'
+    target: install
+  when: nvimrepo.changed
+  become: true

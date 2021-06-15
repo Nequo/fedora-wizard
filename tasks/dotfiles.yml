@@ -1,0 +1,30 @@
+---
+# Uses the method described here: https://www.atlassian.com/git/tutorials/dotfiles
+
+
+- name: dotfiles | gitignore .cfg
+  ansible.builtin.copy:
+    content: ".cfg"
+    dest: "/home/{{ ansible_user_id }}/.gitignore"
+    owner: "{{ ansible_user_id }}"
+
+
+- name: dotfiles | clone repo
+  ansible.builtin.git:
+    repo: git@github.com:Nequo/config.git
+    dest: "/home/{{ ansible_user_id }}/.cfg"
+    bare: yes
+
+
+- name: dotfiles | checkout repo
+  command:
+    cmd: /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout
+    creates: "/home/{{ ansible_user_id }}/.tmux.conf"
+  register: checkout
+
+
+- name: dotfiles | hide untracked files
+  command:
+    cmd: /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME config --local status.showUntrackedFiles no
+    creates: "/home/{{ ansible_user_id }}/.cfg"
+  when: checkout.changed
