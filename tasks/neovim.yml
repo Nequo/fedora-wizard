@@ -1,9 +1,29 @@
 ---
 
+
+- name: neovim | Install dependencies
+  dnf:
+    name:
+      - ninja-build
+      - libtool
+      - autoconf
+      - automake
+      - cmake
+      - gcc
+      - gcc-c++
+      - make
+      - pkgconfig
+      - unzip
+      - patch
+      - gettext
+    state: present
+  become: true
+
 - name: neovim | Clone repo
   git:
     repo: 'https://github.com/neovim/neovim.git'
     dest: '/home/nequo/git/neovim'
+    version: master
   register: nvimrepo
 
 - name: neovim | Make
