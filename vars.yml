@@ -5,3 +5,5 @@ packages:
   - bat
   - ripgrep
   - fd-find
+  - tmux
+  - ruby
